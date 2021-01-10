@@ -10,11 +10,9 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <nav className="navbar navbar-light bg-light">
-                <div className="container-fluid">
-                    <span className="navbar-brand mb-0 h1">Schedy UI</span>
-                </div>
-            </nav>
+            <div class="bg-light py-1">
+                <h3 className="text-center">Schedy UI</h3>
+            </div>
         )
     }
 }
