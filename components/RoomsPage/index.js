@@ -8,13 +8,15 @@ export default class RoomsPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      rooms: []
+      rooms: {},
+      loading: true
     }
-    this._listRooms = () => {
+    this._listRooms = async () => {
+      await this.setState({rooms: {}, loading: true})
       fetch('api/listRooms')
         .then(res => res.json())
         .then(res => {
-          this.setState({ rooms: res })
+          this.setState({ rooms: res, loading: false })
         })
     }
   }
@@ -32,7 +34,14 @@ export default class RoomsPage extends React.Component {
           <button type="button" className="btn btn-light border ms-1" onClick={this._listRooms}>Reload</button>
         </div>
         {/* No available rooms warning */}
-        {this.state.rooms.length == 0 &&
+        {this.state.loading &&
+          <div className="container my-3">
+            <div class="alert alert-light">
+              Loading...
+            </div>
+          </div>
+        }
+        {this.state.loading == false && Object.keys(this.state.rooms).length == 0 &&
           <div className="container my-3">
             <div class="alert alert-info" role="alert">
               There are no configured rooms
@@ -43,12 +52,14 @@ export default class RoomsPage extends React.Component {
         {/* List of available rooms */}
         <div className="container my-3">
           <div className="row">
-            {this.state.rooms.map((value) => {
+            {Object.keys(this.state.rooms).map((value) => {
               return (
-                <div className="col-sm-4 p-1">
+                <div className="col-lg-6 p-1">
                   <Room
                     key={value}
                     listRooms={this._listRooms}
+                    actors={this.state.rooms[value].actors}
+                    schedule={this.state.rooms[value].schedule}
                     name={value} />
                 </div>
               )

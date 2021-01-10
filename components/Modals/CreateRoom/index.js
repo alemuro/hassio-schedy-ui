@@ -6,9 +6,9 @@ export default class CreateRoom extends React.Component {
         super(props)
         this.state = {
             validRoomNameForm: true,
-            validActuatorForm: true,
+            validActorForm: true,
             name: "",
-            actuator: ""
+            actor: ""
         }
         this._listRooms = props.listRooms
         this._setName = async (name) => {
@@ -19,21 +19,27 @@ export default class CreateRoom extends React.Component {
                 await this.setState({ validRoomNameForm: false })
             }
         }
-        this._setActuator = async (actuator) => {
+        this._setActor = async (actor) => {
             const r = RegExp('^climate\.[a-zA-Z0-9_-]*$')
-            if (r.test(actuator)) {
-                await this.setState({ validActuatorForm: true, actuator: actuator })
+            if (r.test(actor)) {
+                await this.setState({ validActorForm: true, actor: actor })
             } else {
-                await this.setState({ validActuatorForm: false })
+                await this.setState({ validActorForm: false })
             }
         }
         this._createRoom = async () => {
-            if (this.state.validRoomNameForm) {
+            if (this.state.validRoomNameForm && this.state.validActorForm) {
                 await fetch('api/createRoom', {
                     method: 'POST',
-                    body: JSON.stringify({ name: this.state.name })
+                    body: JSON.stringify({
+                        name: this.state.name,
+                        actor: this.state.actor
+                    })
                 })
-                this.setState({ name: "" })
+                this.setState({
+                    name: "",
+                    actor: ""
+                })
                 this._listRooms()
             }
         }
@@ -50,25 +56,25 @@ export default class CreateRoom extends React.Component {
                         </div>
                         <div className="modal-body">
                             <form>
-                                <div class="mb-3">
-                                    <label for="roomName" class="form-label">Room name</label>
-                                    <input class="form-control" id="roomName" aria-describedby="roomNameHelp" onChange={(e) => this._setName(e.target.value)} />
+                                <div className="mb-3">
+                                    <label htmlFor="roomName" className="form-label">Room name</label>
+                                    <input className="form-control" id="roomName" aria-describedby="roomNameHelp" onChange={(e) => this._setName(e.target.value)} />
                                     {this.state.validRoomNameForm == false && (
-                                        <div id="roomNameHelp" class="form-text text-danger">Only alphanumeric characters allowed.</div>
+                                        <div id="roomNameHelp" className="form-text text-danger">Only alphanumeric characters allowed.</div>
                                     )}
                                 </div>
-                                <div class="mb-3">
-                                    <label for="climateActuatorName" class="form-label">Climate actuator</label>
-                                    <input class="form-control" id="climateActuatorName" aria-describedby="climateActuatorNameHelp" onChange={(e) => this._setActuator(e.target.value)} />
-                                    {this.state.validActuatorForm == false && (
-                                        <div id="climateActuatorNameHelp" class="form-text text-danger">Must begin with climate.</div>
+                                <div className="mb-3">
+                                    <label htmlFor="climateActorName" className="form-label">Climate actor</label>
+                                    <input className="form-control" id="climateActorName" aria-describedby="climateActorNameHelp" onChange={(e) => this._setActor(e.target.value)} />
+                                    {this.state.validActorForm == false && (
+                                        <div id="climateActorNameHelp" className="form-text text-danger">Must begin with climate.</div>
                                     )}
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" disabled={!this.state.validRoomNameForm || !this.state.validActuatorForm} data-bs-dismiss="modal" onClick={() => this._createRoom()}>Save changes</button>
+                            <button type="button" className="btn btn-primary" disabled={!this.state.validRoomNameForm || !this.state.validActorForm} data-bs-dismiss="modal" onClick={() => this._createRoom()}>Save changes</button>
                         </div>
                     </div>
                 </div>
