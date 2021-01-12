@@ -1,3 +1,7 @@
 .roomsMenu {
     background-color: #247BA0;
 }
+
+.notSelected {
+    background-color: #ddd;
+}

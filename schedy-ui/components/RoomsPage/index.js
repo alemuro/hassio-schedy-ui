@@ -1,6 +1,9 @@
 import React from 'react'
 
+import styles from '../../styles/SchedulerCard.module.css'
+
 import RoomsMenu from '../RoomsMenu'
+import SchedulerCard from '../SchedulerCard'
 import CreateRoomModal from '../Modals/CreateRoom'
 
 export default class RoomsPage extends React.Component {
@@ -32,57 +35,25 @@ export default class RoomsPage extends React.Component {
         <div className="container bg-light p-0">
           <div className="row">
             <div className="col-5">
-              <div className="fs-3 px-3 py-1 bg-secondary text-light">Schedulers</div>
-              <div className="card border-0 rounded-0">
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-3 px-3">
-                      <small>Start </small><br /><span className="fs-3">02:23</span>
-                    </div>
-                    <div className="col-3 px-3">
-                      <small>End </small><br /><span className="fs-3">05:23</span>
-                    </div>
-                    <div className="col-3 px-3">
-                      <small>Value </small><br /><span className="fs-3">20.5ºC</span>
-                    </div>
-                    <div className="col-12">
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">Mo</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">Tu</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">We</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">Th</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">Fr</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">Sa</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">Su</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-
-              <div className="card border-0 rounded-0">
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-3 px-3">
-                      <small>Start </small><br /><span className="fs-3">02:23</span>
+              <table class="table table-hover p-0 m-0">
+                <tbody>
+                  <tr>
+                    <SchedulerCard start="01:00" end="03:00" value="20.3" unit="ºC" />
+                  </tr>
+                  <tr>
+                    <SchedulerCard start="01:00" end="03:00" value="20.3" unit="ºC" />
+                  </tr>
+                  <tr>
+                    <SchedulerCard start="01:00" end="03:00" value="20.3" unit="ºC" />
+                  </tr>
+                  <tr>
+                    <div className={`card text-center pt-3 pb-5 border-0 ${styles.card}`}>
+                      <span className="fs-5">+ Add scheduler</span>
                     </div>
-                    <div className="col-3 px-3">
-                      <small>End </small><br /><span className="fs-3">05:23</span>
-                    </div>
-                    <div className="col-3 px-3">
-                      <small>Value </small><br /><span className="fs-3">20.5ºC</span>
-                    </div>
-                    <div className="col-12">
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">Mo</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">Tu</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">We</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">Th</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill text-dark bg-transparent">Fr</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">Sa</span>
-                      <span class="badge rounded-circle border border-secondary m-1 rounded-pill bg-secondary">Su</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div className="col-7">
 
@@ -91,7 +62,7 @@ export default class RoomsPage extends React.Component {
 
 
         </div>
-      </div>
+      </div >
     )
   }
 }

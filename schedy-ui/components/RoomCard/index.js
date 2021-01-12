@@ -1,5 +1,7 @@
 import React from 'react'
 
+import styles from '../../styles/RoomsMenu.module.css'
+
 import CreateSchedulerRoomModal from '../Modals/CreateSchedulerRoom'
 import RemoveRoomModal from '../Modals/RemoveRoom'
 
@@ -9,7 +11,8 @@ export default class Room extends React.Component {
         this.state = {
             name: props.name,
             actors: Object.keys(props.actors),
-            schedule: props.schedule
+            schedule: props.schedule,
+            selected: props.selected
         }
         this._listRooms = props.listRooms
         this._removeRoom = async () => {
@@ -23,7 +26,7 @@ export default class Room extends React.Component {
 
     render() {
         return (
-            <div className="card bg-light shadow-sm border-light border-3 my-3">
+            <div className={`card border-0 my-3 ${this.state.selected ? "bg-light shadow" : styles.notSelected }`}>
                 <div className="card-body">
                     <div className="row">
                         <div className="col-7">
