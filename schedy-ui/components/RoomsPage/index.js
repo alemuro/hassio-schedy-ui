@@ -3,6 +3,7 @@ import React from 'react'
 import styles from '../../styles/SchedulerCard.module.css'
 
 import RoomsMenu from '../RoomsMenu'
+import RoomDetail from '../RoomDetail'
 import SchedulerCard from '../SchedulerCard'
 import CreateRoomModal from '../Modals/CreateRoom'
 
@@ -56,7 +57,7 @@ export default class RoomsPage extends React.Component {
               </table>
             </div>
             <div className="col-7">
-
+              <RoomDetail />
             </div>
           </div>
 
