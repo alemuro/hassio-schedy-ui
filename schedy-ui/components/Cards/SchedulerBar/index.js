@@ -118,12 +118,12 @@ export default class SchedulerBar extends React.Component {
 
     render() {
         return (
-            <div class="progress" style={{ width: "100%" }}>
+            <div className="progress" style={{ width: "100%" }}>
                 {this.state.orderedSchedulers.map((v) => {
                     return (
                         v.active
-                            ? <div class="progress-bar bg-warning" role="progressbar" style={{ width: `${this.getPercentage(v.start, v.end)}%` }} aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                            : <div class="progress-bar bg-transparent" role="progressbar" style={{ width: `${this.getPercentage(v.start, v.end)}%` }} aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                            ? <div className="progress-bar bg-warning" role="progressbar" style={{ width: `${this.getPercentage(v.start, v.end)}%` }} aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                            : <div className="progress-bar bg-transparent" role="progressbar" style={{ width: `${this.getPercentage(v.start, v.end)}%` }} aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                     )
                 })}
             </div >

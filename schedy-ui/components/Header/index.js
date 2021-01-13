@@ -10,7 +10,7 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <div class="bg-light py-1">
+            <div className="bg-light py-1">
                 <h3 className="text-center">Schedy UI</h3>
             </div>
         )

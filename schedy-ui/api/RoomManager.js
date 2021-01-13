@@ -6,7 +6,26 @@ class RoomManager {
 
     list() {
         const doc = FileManager.load()
-        return doc.schedy.rooms || {}
+        const docRooms = Object.keys(doc.schedy.rooms)
+        const roomsResponse = []
+        for (let roomName of docRooms) {
+            // craft room object we want to return
+            const roomsResponseObj = {
+                name: roomName,
+                actors: Object.keys(doc.schedy.rooms[roomName].actors),
+                schedule: doc.schedy.rooms[roomName].schedule
+            }
+
+            // schedule: string to array
+            for (let i = 0; i < roomsResponseObj.schedule.length; ++i) {
+                if (roomsResponseObj.schedule[i].weekdays == undefined) continue
+                roomsResponseObj.schedule[i].weekdays = roomsResponseObj.schedule[i].weekdays.split(",")
+            }
+
+            // add transformed object
+            roomsResponse.push(roomsResponseObj)
+        }
+        return roomsResponse
     }
 
     addScheduler(roomName, temperature, fromHour, toHour, weekdays) {
