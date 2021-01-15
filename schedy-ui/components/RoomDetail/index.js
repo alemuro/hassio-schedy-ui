@@ -24,20 +24,18 @@ const RoomDetail = ({room}) => {
             </div>
             <table className="table table-borderless">
                 <tbody>
-                    {days.map((v, i) => {
-                        return (
-                            <tr key={i}>
-                                <td className="w-25 align-top">{days[i]}</td>
-                                <td className="w-75">
-                                    {/* <SchedulerBar schedulers={} /> */}
-                                </td>
-                            </tr>
-                        )
-                    })}
+                    {days.map((v, i) => (
+                      <tr key={i}>
+                        <td className="w-25 align-top">{days[i]}</td>
+                        <td className="w-75">
+                            {/* <SchedulerBar schedulers={} /> */}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
             </table>
             <div className="text-center mt-3">
-                <a href="#" class="link-danger" data-bs-toggle="modal" data-bs-target="#removeRoomModal">Delete room</a>
+                <a href="#" className="link-danger" data-bs-toggle="modal" data-bs-target="#removeRoomModal">Delete room</a>
             </div>
             <RemoveRoomModal key={room.name} name={room.name} />
         </div>

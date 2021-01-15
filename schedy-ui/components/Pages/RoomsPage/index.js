@@ -11,7 +11,7 @@ const RoomsPage = () => {
 
   const [rooms, setRooms] = useState([])
   const [selectedRoom, setSelectedRoom] = useState(0)
-  
+
   useEffect(() => {
     listRooms()
     document.addEventListener('listRooms', listRooms)
@@ -34,7 +34,7 @@ const RoomsPage = () => {
           setSelectedRoom(0)
         setRooms(res)
       })
-  } 
+  }
 
   const removeRoom = async (e) => {
     fetch('api/removeRoom', {
@@ -49,7 +49,7 @@ const RoomsPage = () => {
     await fetch('api/removeSchedulerRoom', {
       method: 'POST',
       body: JSON.stringify({
-        roomName: roomName, 
+        roomName: roomName,
         schedulerName: schedulerName
       })
     })
@@ -57,37 +57,26 @@ const RoomsPage = () => {
   }
 
   return (
-    <div>
+    <>
       <RoomsMenu rooms={rooms} selectedRoom={selectedRoom} />
       <div className="container bg-light p-0">
         <div className="row">
           <div className="col-lg-5 border-end">
-            {rooms.length > 0 && 
-              (<table className="table table-hover p-0 m-0">
-                <tbody>
-                  {rooms[selectedRoom].schedule.map((v, i) => {
-                    return v.start && (
-                      <tr>
-                        <SchedulerCard 
-                          roomName={rooms[selectedRoom].name}
-                          key={`${v.start}-${v.end}-${i}-${v.v}`} 
-                          start={v.start} 
-                          end={v.end} 
-                          value={v.v} 
-                          name={v.name}
-                          weekdays={v.weekdays}
-                          unit="ºC" />
-                      </tr>
-                    )
-                  })}
-                  <tr>
-                    <div className={`card text-center pt-3 pb-5 border-0 ${styles.card}`} data-bs-toggle="modal" data-bs-target="#createSchedulerRoomModal">
-                      <span className="fs-5">+ Add scheduler</span>
-                    </div>
-                  </tr>
-                </tbody>
-              </table>
-            )}
+            {rooms.length > 0 &&
+              rooms[selectedRoom].schedule.map((v, i) => v.start && (
+                <SchedulerCard
+                  key={`${v.start}-${v.end}-${i}-${v.v}`}
+                  roomName={rooms[selectedRoom].name}
+                  start={v.start}
+                  end={v.end}
+                  value={v.v}
+                  name={v.name}
+                  weekdays={v.weekdays}
+                  unit="ºC" />
+              ))}
+              <div className={`card text-center pt-3 pb-5 border-0 ${styles.card}`} data-bs-toggle="modal" data-bs-target="#createSchedulerRoomModal">
+                <span className="fs-5">+ Add scheduler</span>
+              </div>
           </div>
           <div className="col-lg-7">
             {rooms.length > 0 &&
@@ -99,7 +88,7 @@ const RoomsPage = () => {
       {rooms.length > 0 &&
         <CreateSchedulerRoomModal roomName={rooms[selectedRoom].name} />
       }
-    </div >
+    </>
   )
 }
 

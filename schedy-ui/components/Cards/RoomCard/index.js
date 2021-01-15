@@ -17,11 +17,7 @@ const RoomCard = ({ name, actors, selected, index }) => {
                 <div className="row">
                     <div className="col-7">
                         <h5 className="card-title">{name}</h5>
-                        {actors.map((v) => {
-                            return (
-                                <h6 className="card-subtitle mb-2">{v}</h6>
-                            )
-                        })}
+                        {actors.map(v => <h6 key={`${name}-${v}`} className="card-subtitle mb-2">{v}</h6>)}
                     </div>
                     {/* <div className="col-5 text-end fs-2">
                         20.5ºC
