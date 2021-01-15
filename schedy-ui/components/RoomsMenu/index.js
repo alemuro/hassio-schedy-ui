@@ -10,7 +10,7 @@ const RoomsMenu = ({rooms, selectedRoom}) => (
     <div className="container py-3">
       <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#createRoomModal">+ Add room</button>
       <div className="row">
-        {rooms.map((v, i) => {
+        {rooms.length > 0 && rooms.map((v, i) => {
           return (
             <div className="col-lg-3 col-md-6">
               <RoomCard

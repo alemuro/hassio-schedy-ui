@@ -1,17 +1,15 @@
 import yaml from 'js-yaml'
 import fs from 'fs'
 
-class FileManager {
-    constructor() {
-        this.file = '/tmp/schedy2.yaml'
-    }
+const SCHEDY_CONF_FILE = process.env.SCHEDY_CONF_FILE || '/tmp/schedy2.yaml'
 
+class FileManager {
     load() {
-        return yaml.load(fs.readFileSync(this.file, 'utf8'));
+        return yaml.load(fs.readFileSync(SCHEDY_CONF_FILE, 'utf8'));
     }
 
     save(doc) {
-        fs.writeFileSync(this.file, yaml.dump(doc))
+        fs.writeFileSync(SCHEDY_CONF_FILE, yaml.dump(doc))
     }
 }
 
