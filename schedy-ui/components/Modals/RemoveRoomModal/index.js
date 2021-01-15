@@ -7,7 +7,7 @@ const RemoveRoomModal = ({name}) => {
     }
 
     return (
-        <div className="modal fade" id="removeRoomModal" tabindex="-1" aria-labelledby="removeRoomModalLabel" aria-hidden="true">
+        <div className="modal fade" id="removeRoomModal" tabIndex="-1" aria-labelledby="removeRoomModalLabel" aria-hidden="true">
             <div className="modal-dialog" >
                 <div className="modal-content">
                     <div className="modal-header">

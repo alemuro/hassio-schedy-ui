@@ -28,28 +28,6 @@ class RoomManager {
         return roomsResponse
     }
 
-    addScheduler(roomName, temperature, fromHour, toHour, weekdays) {
-        const doc = FileManager.load()
-        if (doc.schedy.rooms[roomName] != null) {
-            if (doc.schedy.rooms[roomName].schedule == null) {
-                doc.schedy.rooms[roomName].schedule = []
-            }
-            doc.schedy.rooms[roomName].schedule.splice(
-                doc.schedy.rooms[roomName].schedule.length - 1,
-                0,
-                {
-                    v: parseFloat(temperature),
-                    start: fromHour,
-                    end: toHour,
-                    weekdays: weekdays.toString(),
-                    name: shortid.generate()
-                }
-            )
-
-            FileManager.save(doc)
-        }
-    }
-
     create(roomName, actorNames) {
         const doc = FileManager.load()
         if (doc.schedy.rooms == null)
@@ -80,6 +58,41 @@ class RoomManager {
             doc.schedy.rooms = {}
 
         delete doc.schedy.rooms[roomName]
+        FileManager.save(doc)
+    }
+
+
+
+    addScheduler(roomName, temperature, fromHour, toHour, weekdays) {
+        const doc = FileManager.load()
+        if (doc.schedy.rooms[roomName] != null) {
+            if (doc.schedy.rooms[roomName].schedule == null) {
+                doc.schedy.rooms[roomName].schedule = []
+            }
+            doc.schedy.rooms[roomName].schedule.splice(
+                doc.schedy.rooms[roomName].schedule.length - 1,
+                0,
+                {
+                    v: parseFloat(temperature),
+                    start: fromHour,
+                    end: toHour,
+                    weekdays: weekdays.toString(),
+                    name: shortid.generate()
+                }
+            )
+
+            FileManager.save(doc)
+        }
+    }
+
+    deleteScheduler(roomName, schedulerName) {
+        const doc = FileManager.load()
+        for (let i = 0; i < doc.rooms[roomName].schedule.length; ++i) {
+            if (doc.rooms[roomName].schedule[i].name == schedulerName) {
+                doc.rooms[roomName].schedule.splice(i,1)
+            }
+        }
+
         FileManager.save(doc)
     }
 }

@@ -2,6 +2,14 @@ import React, { useState } from 'react'
 
 const CreateSchedulerRoomModal = ({roomName}) => {
 
+    
+    const [formControl, setFormValidation] = useState({
+        temperature: true,
+        fromHour: true,
+        toHour: true,
+        global: false
+    })
+
     const [form, setForm] = useState({
         temperature: "",
         fromHour: "",
@@ -15,12 +23,6 @@ const CreateSchedulerRoomModal = ({roomName}) => {
         sunday: true
     })
 
-    const [formControl, setFormControl] = useState({
-        temperature: true,
-        fromHour: true,
-        toHour: true,
-        global: false
-    })
 
     const days = [
         "monday",
@@ -56,7 +58,7 @@ const CreateSchedulerRoomModal = ({roomName}) => {
     }
 
     const enableSubmit = () => {
-        setFormControl({
+        setFormValidation({
             ...formControl,
             global: formControl.temperature && formControl.fromHour && formControl.toHour
         })
@@ -69,17 +71,18 @@ const CreateSchedulerRoomModal = ({roomName}) => {
         enableSubmit()
     }
 
-    const setTemperature = (e) => {
+    const setTemperature = async (e) => {
         const temperature = e.target.value
         const r = RegExp('^((([0-3]{1})?)[0-9]{1}((\.[0-9]{1,2})?))$')
         setForm({
             ...form,
-            temperature: (r.test(temperature)) ? temperature : form.temperature
+            temperature: temperature
         })
-        setFormControl({
-            ...formControl,
+        await setFormValidation({
             temperature: r.test(temperature)
         })
+        console.log(r.test(temperature), formControl)
+        console.log(form)
         enableSubmit()
     }
 
@@ -90,7 +93,7 @@ const CreateSchedulerRoomModal = ({roomName}) => {
             ...form,
             fromHour: (r.test(fromHour)) ? fromHour : form.fromHour
         })
-        setFormControl({
+        setFormValidation({
             ...formControl,
             fromHour: r.test(fromHour)
         })
@@ -104,7 +107,7 @@ const CreateSchedulerRoomModal = ({roomName}) => {
             ...form,
             toHour: (r.test(toHour)) ? toHour : form.toHour
         })
-        setFormControl({
+        setFormValidation({
             ...formControl,
             toHour: r.test(toHour)
         })
@@ -113,7 +116,7 @@ const CreateSchedulerRoomModal = ({roomName}) => {
 
 
     return (
-        <div className="modal fade" id="createSchedulerRoomModal" tabindex="-1" aria-labelledby="createSchedulerRoomModalLabel" aria-hidden="true">
+        <div className="modal fade" id="createSchedulerRoomModal" tabIndex="-1" aria-labelledby="createSchedulerRoomModalLabel" aria-hidden="true">
             <div className="modal-dialog" >
                 <div className="modal-content">
                     <div className="modal-header">
@@ -134,8 +137,9 @@ const CreateSchedulerRoomModal = ({roomName}) => {
                                     id="temperature"
                                     aria-describedby="temperatureHelp"
                                     onChange={setTemperature}
+                                    value={form.temperature}
                                     placeholder="20.5" />
-                                {formControl.temperature == false && (
+                                {!formControl.temperature && (
                                     <div id="temperatureHelp" className="form-text text-danger">Must be a number between 0 and 39 and up to two decimals.</div>
                                 )}
                             </div>
