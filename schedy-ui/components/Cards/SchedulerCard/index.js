@@ -4,18 +4,19 @@ import Icon from '@mdi/react'
 import { mdiCalendarClock } from '@mdi/js';
 
 import styles from '../../../styles/SchedulerCard.module.css'
+import RemoveSchedulerRoomModal from '../../Modals/RemoveSchedulerRoomModal'
 import SchedulerCardDayBadge from '../SchedulerCardDayBadge'
 
 // export default class SchedulerCard extends React.Component {
-const SchedulerCard = ({start, end, value, unit, weekdays}) => (
-    <div className={`card ps-3 rounded-0 border-bottom border-start-0 border-end-0 border-top-0 ${styles.card}`}>
+const SchedulerCard = ({start, end, value, unit, weekdays, name, roomName}) => (
+    <div className={`card ps-3 rounded-0 border-bottom border-start-0 border-end-0 border-top-0 ${styles.card}`} data-bs-toggle="modal" data-bs-target={`#removeSchedulerRoomModal-${name}`}>
         <div className="card-body">
             <div className="row">
                 <div className="col-lg-1 d-flex align-items-center align-items-center text-secondary">
                     <div>
                         <Icon path={mdiCalendarClock} title="clock" size="32px" />
                     </div>
-                </div>
+                </div>  
                 <div className="col-lg-11">
                     <div className="row">
                         <div className="col-3 offset-1 px-3">
@@ -40,6 +41,8 @@ const SchedulerCard = ({start, end, value, unit, weekdays}) => (
                 </div>
             </div>
         </div>
+        <RemoveSchedulerRoomModal
+            roomName={roomName} schedulerName={name} />
     </div>
 );
 

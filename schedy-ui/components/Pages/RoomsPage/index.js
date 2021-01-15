@@ -21,6 +21,9 @@ const RoomsPage = () => {
     document.addEventListener('selectRoom', (e) => {
       setSelectedRoom(e.detail)
     })
+    document.addEventListener('removeSchedulerRoom', (e) => {
+      removeSchedulerRoom(e.detail.roomName, e.detail.schedulerName)
+    })
   }, [])
 
   const listRooms = async () => {
@@ -42,6 +45,17 @@ const RoomsPage = () => {
     listRooms()
   }
 
+  const removeSchedulerRoom = async (roomName, schedulerName) => {
+    await fetch('api/removeSchedulerRoom', {
+      method: 'POST',
+      body: JSON.stringify({
+        roomName: roomName, 
+        schedulerName: schedulerName
+      })
+    })
+    listRooms()
+  }
+
   return (
     <div>
       <RoomsMenu rooms={rooms} selectedRoom={selectedRoom} />
@@ -55,10 +69,12 @@ const RoomsPage = () => {
                     return v.start && (
                       <tr>
                         <SchedulerCard 
+                          roomName={rooms[selectedRoom].name}
                           key={`${v.start}-${v.end}-${i}-${v.v}`} 
                           start={v.start} 
                           end={v.end} 
                           value={v.v} 
+                          name={v.name}
                           weekdays={v.weekdays}
                           unit="ºC" />
                       </tr>

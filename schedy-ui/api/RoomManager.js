@@ -87,9 +87,9 @@ class RoomManager {
 
     deleteScheduler(roomName, schedulerName) {
         const doc = FileManager.load()
-        for (let i = 0; i < doc.rooms[roomName].schedule.length; ++i) {
-            if (doc.rooms[roomName].schedule[i].name == schedulerName) {
-                doc.rooms[roomName].schedule.splice(i,1)
+        for (let i = 0; i < doc.schedy.rooms[roomName].schedule.length; ++i) {
+            if (doc.schedy.rooms[roomName].schedule[i].name == schedulerName) {
+                doc.schedy.rooms[roomName].schedule.splice(i,1)
             }
         }
 
