@@ -1,18 +1,32 @@
+import { useEffect, useState } from 'react';
 import TimeBlock from './TimeBlock';
+import { getSegments } from '../../../helpers/helpers';
+import HourBlock from './HourBlock';
 
 const SchedulerBar = ({ schedulers = null }) => {
+
+  const [segments, setSegments] = useState([])
+
+  useEffect(() => {
+    setSegments(getSegments(schedulers))
+  })
+
   if (!schedulers) return false;
 
   return (
     <>
-      <ol>
-        {schedulers.map(timeblock => timeblock.start && (
+      <ol className="schedulers">
+        {segments.length > 0 && segments.map(timeblock => timeblock.start && (
           <TimeBlock start={timeblock.start} end={timeblock.end} value={timeblock.v} />
+        ))}
+      </ol>
+      <ol>
+        {segments.length > 0 && segments.map(timeblock => timeblock.start && (
+          <HourBlock start={timeblock.start} end={timeblock.end} />
         ))}
       </ol>
       <style jsx>{`
         ol {
-          background-color: rgba(0,0,0,.05);
           height: 40px;
           list-style: none;
           margin: 0;
