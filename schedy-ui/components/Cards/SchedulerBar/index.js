@@ -9,7 +9,7 @@ const SchedulerBar = ({ schedulers = null }) => {
 
   useEffect(() => {
     setSegments(getSegments(schedulers))
-  })
+  }, [])
 
   if (!schedulers) return false;
 

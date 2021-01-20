@@ -24,18 +24,19 @@ const getSchedulersByDay = (schedulers, day) => {
 }
 
 const getSegments = (schedulers) => {
-  console.log("getSegments")
   const normalizedSchedulers = []
   for (let scheduler of schedulers) {
-    normalizedSchedulers.push({
-      v: scheduler.v,
-      start: scheduler.start || "00:00",
-      end: scheduler.end || "23:59",
-      name: scheduler.name || "undefined"
-    })
+    const start = scheduler.start || "00:00"
+    const end = scheduler.end || "23:59"
+    if (getMinutesSinceNoon(start) > getMinutesSinceNoon(end)) {
+      normalizedSchedulers.push({ v: scheduler.v,ºstart: start,ºend: "23:59",ºname: scheduler.name || "undefined" })
+      normalizedSchedulers.push({ v: scheduler.v, start: "00:00", end: end, name: scheduler.name || "undefined" })
+    }
+    else
+      normalizedSchedulers.push({ v: scheduler.v,start: start,end: end,name: scheduler.name || "undefined" })
   }
   normalizedSchedulers.reverse()
-  
+
   const segments = [normalizedSchedulers[0]] // ini
 
   // process schedules from yaml
@@ -53,16 +54,22 @@ const getSegments = (schedulers) => {
       }
 
       // el nou cap dins del existent
-      if (schedule.start > segment.start && schedule.end < segment.end) {
+      if ((schedule.start >= segment.start && schedule.end < segment.end) || 
+          (schedule.start > segment.start && schedule.end <= segment.end)) {
         // eliminem l'objecte que és solapat
-        segments.splice(j, 1) 
-        segments.push({ ...segment, end: schedule.start })
-        segments.push(schedule)
-        segments.push({ ...segment, start: schedule.end })
+        segments.splice(j, 1)
+        if (schedule.start > segment.start) {
+          segments.push({ ...segment, end: schedule.start })
+          normalizedSchedulers.splice(i, 0, { ...segment, end: schedule.start })
+        }
 
-        normalizedSchedulers.splice(i, 0, { ...segment, end: schedule.start })
+        segments.push(schedule)
         normalizedSchedulers.splice(i, 0, { ...schedule })
-        normalizedSchedulers.splice(i, 0, { ...segment, start: schedule.end })
+
+        if (schedule.end < segment.end) {
+          segments.push({ ...segment, start: schedule.end })
+          normalizedSchedulers.splice(i, 0, { ...segment, start: schedule.end })
+        }
       }
 
       // el nou comença abans i es solapa parcialment
@@ -87,17 +94,21 @@ const getSegments = (schedulers) => {
     }
   }
 
-  segments.sort((a, b) => {
-    if ( getMinutesSinceNoon(a.start) < getMinutesSinceNoon(b.start) ){
-      return -1;
-    }
-    if ( getMinutesSinceNoon(a.start) > getMinutesSinceNoon(b.start) ){
-      return 1;
-    }
-    return 0;
-  })
+  segments.sort(sortSegments)
 
   return segments
 }
+
+const sortSegments = (a,b) => {
+  if ( getMinutesSinceNoon(a.start) < getMinutesSinceNoon(b.start) ){
+    return -1;
+  }
+  if ( getMinutesSinceNoon(a.start) > getMinutesSinceNoon(b.start) ){
+    return 1;
+  }
+  return 0;
+}
+
+
 
 export {getMinutesSinceNoon, getPercentage, getSegments, getSchedulersByDay};

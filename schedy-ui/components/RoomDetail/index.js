@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import SchedulerBar from '../Cards/SchedulerBar'
 import RemoveRoomModal from '../Modals/RemoveRoomModal'
@@ -18,13 +18,13 @@ const RoomDetail = ({ room }) => {
   ]
 
   return (
-      <div className="p-5">
-          <div className="text-center mb-5">
+      <div className="p-3">
+          <div className="text-center mb-3">
               <h3>{room.name}</h3>
               <span><i>{room.actors.toString()}</i></span>
           </div>
           {days.map((v, i) => (
-            <div className="container pt-3">
+            <div key={`${room.name}-${days[i]}`} className="container pt-1">
               <span>{days[i]}</span>
               <SchedulerBar schedulers={getSchedulersByDay(room.schedule, (i+1))} />
             </div>
