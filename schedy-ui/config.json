@@ -4,11 +4,7 @@
     "slug": "schedy_ui",
     "description": "Schedy User Interface, make it easier to make schedulers!",
     "arch": [
-        "armhf", 
-        "armv7", 
-        "aarch64", 
-        "amd64", 
-        "i386"
+        "armv7"
     ],
     "startup": "application",
     "boot": "auto",
@@ -23,5 +19,6 @@
     },
     "schema": {
         "schedy_config_file": "string"
-    }
+    },
+    "image": "alemuro/{arch}-hassio-schedy-ui"
 }
