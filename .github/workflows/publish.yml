@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'schedy-ui/src/**'
+      - 'schedy-ui/run.sh'
+      - 'schedy-ui/Dockerfile'
 
 jobs:
   publish:
