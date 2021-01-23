@@ -17,7 +17,7 @@ FROM $BUILD_FROM
 
 WORKDIR /app
 
-EXPOSE 3000
+EXPOSE 8099
 
 COPY --from=builder /app /app
 COPY run.sh /
