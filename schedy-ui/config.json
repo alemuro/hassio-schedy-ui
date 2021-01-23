@@ -16,7 +16,7 @@
     "ingress": true,
     "homeassistant_api": true,
     "ports": {
-        "8391/tcp": 3000
+        "3000/tcp": 8391
     },  
     "options": {
         "schedy_config_file": "/config/appdaemon/apps/schedy.yaml"
