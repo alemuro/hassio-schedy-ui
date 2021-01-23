@@ -22,7 +22,7 @@
         "schedy_config_file": "/config/appdaemon/apps/schedy.yaml"
     },
     "schema": {
-        "schedy_config_file": "string"
+        "schedy_config_file": "str"
     },
     "image": "alemuro/{arch}-hassio-schedy-ui"
 }
