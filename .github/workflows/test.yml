@@ -2,10 +2,10 @@ name: 'Test'
 
 on:
   push:
-    branches_ignore:
+    branches-ignore:
       - main
   pull_request:
-    branches_ignore:
+    branches-ignore:
       - main
 
 jobs:
