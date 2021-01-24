@@ -1,6 +1,6 @@
 {
     "name": "Schedy UI",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "slug": "schedy_ui",
     "description": "Schedy User Interface, make it easier to make schedulers!",
     "arch": [
