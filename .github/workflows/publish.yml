@@ -5,7 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'schedy-ui/**'
+      - 'schedy-ui/src/**'
+      - 'schedy-ui/run.sh'
+      - 'schedy-ui/Dockerfile'
 
 jobs:
   publish:

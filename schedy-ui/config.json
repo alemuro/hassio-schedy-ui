@@ -14,7 +14,7 @@
     "boot": "auto",
     "map": ["share:rw", "config:rw"],
     "homeassistant_api": true,
-    "ingres": true,
+    "ingress": true,
     "ports": {
         "8099/tcp": 8391
     },  
